@@ -1,0 +1,72 @@
+/* Apply custom styles to the navbar */
+.navbar {
+    background-color: #333;
+    height: 5rem;
+    text-align: center;
+}
+
+.navbar-brand {
+    font-weight: 200;
+    font-size: 3rem;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Rubik Vinyl', cursive;
+    font-family: 'Rubik Wet Paint', cursive;
+    color: rgb(171, 54, 54);
+    margin: 0px 3rem;
+}
+
+.navbar-brand:hover {
+    color: aqua;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+/* Customize the toggler icon color */
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+/* Adjust the color of the active nav link */
+.nav-link.active {
+    background-color: #555;
+}
+
+/* Style the dropdown menu */
+.dropdown-menu {
+    background-color: #333;
+}
+
+.dropdown-item {
+    color: white !important;
+}
+
+/* Add a hover effect to dropdown items */
+.dropdown-item:hover {
+    background-color: #555;
+}
+/* Cards and Carsoule*/
+/* Apply custom styles to the carousel container */
+.carousel-container {
+    position: relative;
+    z-index: 1; /* Adjust this value as needed */
+  }
+  
+  /* Ensure cards are above the carousel */
+  .cards-container {
+    position: relative;
+    z-index: 2; /* Adjust this value to ensure cards are above the carousel */
+  }
+ .option-design {
+    border:3px solid aqua;
+    color:#555;
+    width:4rem;
+ }
+ .option-design:hover{
+    border:3px solid grey;
+    color:aqua;
+ }
+  
