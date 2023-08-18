@@ -10,7 +10,7 @@ we are going to use the express-validation library. in this we have multiple fun
 
 /* firstly import the express-validator*/
 const {body,validationResult}=require('express-validator');
-
+const bcrypt=require('bcrypt');
 router.post('/createuser',[
  body('email','invalid email check your email agian!').isEmail(),
  body('password','invalid password').isLength({min:5}),
@@ -21,12 +21,14 @@ router.post('/createuser',[
     if(!error.isEmpty()){
         return res.status(400).json({error:error.array()});
     }
+    const salt=await bcrypt.genSalt(10);
+    let securepassword=await bcrypt.hash(req.body.password,salt);
     try {
          await UserSchema.create({
             name:req.body.name,
             location:req.body.location,
             email:req.body.email,
-            password:req.body.password,
+            password:securepassword,
         })
         res.json({success:true});
     } catch (error) {
