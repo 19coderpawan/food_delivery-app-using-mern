@@ -50,6 +50,9 @@ const Login = () => {
            setTimeout(()=>{
                alert("Thank you login");
                setcredentials({email:"",password:""});
+            //    so before navigating to the home page i am going to save the jwt in the localstorage.
+                localStorage.setItem("authtoke",json.authtoken);
+                console.log(localStorage.getItem("authtoke"));
                navigate('/');
            })
            
