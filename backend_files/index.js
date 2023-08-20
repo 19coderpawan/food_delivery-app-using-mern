@@ -16,7 +16,7 @@ const port = process.env.Port;
 connectdb();
 const Router=require('./Routes/CreateUser');
 const Router2=require('./Routes/UserLogin');
-
+const Router3=require('./Routes/DisplayData');
 /* Now once you have created the signup page in the frontend and you have setup everything now you have to allow 
 the crossorign*/
 app.use((req,res,next)=>{
@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
 app.use(express.json())
 app.use('/api',Router)
 app.use('/api',Router2)
+app.use('/api',Router3)
 
 
 /*This line starts the Express server and makes it listen on the specified port. 
