@@ -1,15 +1,18 @@
 import React from 'react'
 
-const Cards = () => {
+const Cards = (props) => {
+    let options=props.foodoptions;
+    // now i want to display the keys of the option object for that we have method called Object.key() .
+    let priceoptions=Object.keys(options)
     return (
         <>
             <div className="cards-container">
-                <div className="d-flex " style={{ minHeight: '50vh' }}>
-                    <div className="card" style={{ width: '18rem', margin: '100px 10px' }}>
-                        <img src="../img/paneer.png" className="card-img-top" alt="..." />
+                <div className="d-flex " style={{ minHeight: '55vh' }}>
+                    <div className="card" style={{ width: '30rem', margin: '100px 10px' }}>
+                        <img src={props.foodimage} className="card-img-top" style={{height:'200px'}} alt="..." />
                         <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <h5 className="card-title">{props.foodname}</h5>
+                            <p className="card-text">{props.fooddescription}</p>
                             {/* <a href="/" className="btn btn-primary">Go somewhere</a> */}
                             <div className="container w-100  ">
                                 <select name="" id="" className="m-2 h-100 rounded option-design">
@@ -22,8 +25,15 @@ const Cards = () => {
                                     }
                                 </select>
                                 <select name="" id="" className="m2 h-100 rounded option-design">
-                                    <option  value="half">Half</option>
-                                    <option value="full">Full</option>
+                                    {/* now here we are going to map our options here which is passed 
+                                    as an prop in the card component. */}
+                                    {
+                                        priceoptions.map((option)=>{
+                                          return(
+                                            <option value={option} >{option}</option>
+                                          )
+                                        })
+                                    }
                                 </select>
                                 <div className="d-inline m-4">Price</div>
                             </div>
