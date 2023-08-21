@@ -8,6 +8,8 @@ import Carousel_comp from '../components/Carousel_comp'
 const Home = () => {
   const [food_data_item, setfood_data_item] = useState([]);
   const [food_category_data, setfood_category_data] = useState([]);
+  // another state for the search box.
+  const [search_data,set_search_data]=useState("");
   const loadData = async () => {
     let response = await fetch("http://localhost:9001/api/DisplayData", {
       method: "POST",
@@ -28,11 +30,58 @@ const Home = () => {
       <div>
         <Navbar></Navbar>
         </div>
+        <div className='mt-3 mb-3'>
+        <form className="d-flex" role="search">
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                value={search_data}
+                onChange={(e)=>set_search_data(e.target.value)}
+              />
+              {/* <button className="btn btn-outline-success" type="submit">
+                Search
+              </button> */}
+            </form>
+        </div>
       <div>
         <Carousel_comp></Carousel_comp>
       </div>
-      <div className='Container'>
-        <Cards></Cards>
+      <div className='m-5'>
+        {
+          food_category_data!==[]
+          ?food_category_data.map((data)=>{
+            return(
+              <div className='row mb-3'>
+              <div key={data._id}><h1 className='text-center mt-3'>{data.CategoryName}</h1></div>
+              <hr />
+              {
+                food_data_item!==[]
+                ?food_data_item.filter((item)=>
+                  (item.CategoryName===data.CategoryName) && (item.name.toLowerCase().includes(search_data.toLowerCase()))
+                ).map((food_items)=>{
+                  return(
+                    <div className='col-12 col-md-6 col-lg-3' key={food_items._id}>
+                    <Cards foodname={food_items.name}
+                     foodimage={food_items.img}
+                     fooddescription={food_items.description} 
+                     foodoptions={food_items.options[0]}>
+                     </Cards>
+                    </div>
+                  )
+                  
+                })
+              
+              :<div>ther is no such data</div>
+          }
+              </div>
+            )
+            
+          })
+          :<div>**********</div>
+        }
+       
       </div>
       <div>
         <Footer></Footer>
