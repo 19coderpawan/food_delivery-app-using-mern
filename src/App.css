@@ -69,4 +69,33 @@
     border:3px solid grey;
     color:aqua;
  }
-  
+
+ /* Signup page*/
+.register-btn{
+    border:3px solid aqua;
+    height:60px;
+    width:120px;
+    border-radius: 10px;
+    color:white;
+    background-color:#3b71ca;
+    font-weight: bolder;
+    font-size:20px;
+    box-shadow: 0 4px 9px -4px #3b71ca;
+    transition: all 1s linear;
+}
+.register-btn:hover:focus{
+   color:grey;
+   border-radius: 50px;
+}
+
+/*cards */
+.card-hover{
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+}
+.card-hover:hover{
+    transform: translateY(10px);
+    cursor:pointer;
+}
