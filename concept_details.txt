@@ -1,0 +1,271 @@
+/*-----------------------SCHEMA DETAILS---------------------------------------------
+  In Express.js, Mongoose is a popular library used to interact with MongoDB databases. 
+  Schemas in Mongoose help define the structure and rules for the documents you store in your database.
+ Think of a schema as a blueprint for your data.
+
+Here's a simple explanation of schemas in Mongoose:
+A schema in Mongoose is like a template that describes how your data should look in the MongoDB database.
+It defines the fields, their data types, and any validation rules that need to be applied to the data. 
+This ensures that the data you store in your database follows a consistent structure and meets certain criteria.
+
+For example, if you were creating a schema for a blog post, you might define fields like "title," "content," 
+and "author." You can specify that the "title" field should be a string, the "content" field should be text, 
+and the "author" field should be a reference to another schema representing authors. 
+Additionally, you can set rules like requiring a title and limiting the length of the content.
+
+By using schemas, you can manage your data more effectively and ensure that your application interacts 
+with the database in a predictable way. Mongoose also provides methods to perform various database 
+operations based on the defined schema, making it easier to handle CRUD (Create, Read, Update, Delete) 
+operations in your Express.js application.
+
+ */
+
+
+ /*---------------------------------MODELS AND SCHEMA--------------------------------------
+  Certainly! In Mongoose, a model is a higher-level abstraction built on top of a schema. 
+  While a schema defines the structure and rules for your data, a model provides an interface to 
+  interact with the MongoDB database based on that schema.
+
+ Here's an explanation of models in Mongoose and how they differ from schemas:
+
+1. **Schema:**
+   - A schema is a configuration object that defines the structure of your documents in the MongoDB collection.
+   - It specifies the fields, their data types, default values, validation rules, and more.
+   - Schemas allow you to create a blueprint for how your data should be organized and what constraints
+    it should adhere to.
+
+2. **Model:**
+   - A model is a class that represents a specific collection in the MongoDB database based on a schema.
+   - It acts as an intermediary between your application code and the database, providing methods to
+    perform database operations.
+   - Models allow you to create, read, update, and delete documents in the associated collection 
+   using easy-to-use functions.
+   - They encapsulate the database logic and provide an object-oriented way to interact with your data.
+
+In simpler terms, think of a schema as a plan or design for how your data should be structured, 
+and a model as the tool you use to work with that data according to the plan. The model incorporates the schema's rules and structure, ensuring that any data you work with adheres to those guidelines.
+
+Here's a brief example to illustrate the difference:
+Let's say you have a schema that defines the structure of a "User" document with fields like "username" 
+and "email." To interact with this schema, you would create a model named "User" using Mongoose. 
+This model would provide methods to create new users, fetch user data, update user information, and 
+delete users, all while ensuring that the data you work with follows the schema's rules.
+
+In summary, while a schema defines the rules and structure of your data, a model offers a
+ convenient way to interact with the database using those rules, making your interactions more organized and 
+ consistent in your Express.js application.
+ --------------------------------------------------------------------------------------------------------*/
+
+
+ /*---------------------------------------------ROUTES IN Express-----------------------------------------
+  Routes:
+Routes in Express.js define how your application responds to different HTTP requests 
+(GET, POST, PUT, DELETE, etc.) made to specific URLs or endpoints. Each route corresponds to a 
+specific URL path and HTTP method, and it defines the actions that should be taken when a request
+ matches that route.
+
+For example, you might have a route that handles user registration:
+
+javascript code:
+app.post('/register', (req, res) => {
+  // Logic to register the user and respond accordingly
+});
+In this case, when a POST request is made to the /register URL, the function provided will be 
+executed to handle the registration process.
+--------------------------------------------------------------------------------------------------------/*
+
+/*-----------------------------------------------APP.USE() and Middleware in express------------------------------------------
+ The `app.use()` function in Express is primarily used to create and define middleware. 
+ Middleware functions are essentially functions that sit in between the initial request and the final 
+ response in the request-response cycle. They can modify the request and/or response objects, perform 
+ tasks like validation, authentication, logging, and more.
+
+When you use `app.use()`, you're defining a middleware function that will be executed for every 
+incoming request to your Express application, regardless of the specific route being accessed.
+This makes it a powerful tool for implementing cross-cutting concerns that need to be applied globally, 
+such as logging, authentication checks, setting headers, and more.
+
+Here's a quick recap of how `app.use()` works:
+
+1. You define a middleware function using `app.use()`.
+2. This middleware function will be executed for every incoming request, regardless of the requested route.
+3. The middleware function can perform tasks such as modifying the request/response objects, logging, 
+authentication, error handling, etc.
+4. You can define multiple middleware functions using `app.use()`, and they will be executed in the 
+order they are defined.
+5. Middleware functions can be applied globally to all routes or to specific routes using route paths.
+
+Remember that while `app.use()` is commonly used to define middleware functions, it's not limited to
+that purpose. It can also be used to handle routes and route-specific middleware. The key takeaway 
+is that `app.use()` allows you to insert custom logic into the request-response cycle and provides 
+a flexible way to structure and manage your application's behavior.
+-------------------------------------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------why App.use(express.json())-----------------------------
+ When you're working with Express and you want to handle JSON data in POST requests, it's necessary
+to include app.use(express.json()) as middleware. This middleware is specifically designed to parse JSON 
+data from incoming requests and make it available in your route handlers as JavaScript objects.
+
+Here's why it's necessary:
+
+Parsing JSON Data: When a client sends JSON data in the body of a POST request, it arrives as a string. 
+In order to work with this data on the server side, you need to convert that JSON string into a JavaScript 
+object. The express.json() middleware parses the incoming JSON data and transforms it into a usable object 
+that can be easily accessed within your route handlers.
+
+Integration with Express Routes: By including app.use(express.json()), you're making sure that the 
+JSON parsing process happens before your route handlers are invoked. This ensures that when you access 
+req.body in your route handlers, it already contains the parsed JSON data.
+----------------------------------------------------------------------------------------------------------*/
+
+
+/**********************************Router() in express**********************************************************
+Router():
+The Router() method is used to create modular, mountable route handlers. It allows you to define sets of 
+routes that can be grouped together and then mounted onto a specific path in your application. 
+This helps in organizing your code and breaking down your application's functionality into smaller, 
+more manageable pieces.
+Here's an example of how to use Router():
+
+javascript code:-
+
+const express = require('express');
+const app = express();
+
+// Create a router instance
+const router = express.Router();
+
+// Define routes on the router
+router.get('/', (req, res) => {
+    res.send('Home page');
+});
+
+router.get('/about', (req, res) => {
+    res.send('About page');
+});
+
+// Mount the router onto a specific path
+app.use('/app', router);
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+
+
+In this example, the routes defined on the router object are mounted under the /app path. 
+So, to access the "Home page", you would visit /app, and to access the "About page", you would visit /app/about.
+
+In summary, app.use() is used for registering middleware functions that run during the request-response cycle, 
+and Router() is used for creating modular and mountable route handlers, helping you organize your routes 
+and middleware in a structured manner.
+**************************************************************************************************************/
+
+
+/******************************************EXPRESS VALIDATOR*******************************************************
+    With the help of express validator you can validate your data in the backend like , the name should be 
+    atleast of 10 char long or you can vlidate the email also and other things etc.
+    
+    for more info you can read the documentaion of the epress vailadtor on thier official website.
+    ******************************************************************************************************/
+
+/****************************************HOW TO pefrom authentication in nodejs *********************************
+ In this one we are going to learn how we can use jsonwebtoken , bcrypt , hashing to perform authentication
+ , firstly install jwt and bcrypt in you package.json file.  
+
+ 1. firstly lets use bcrypt to hash the password , then we will generate the jwt.
+  1.1 to bcrypt the password firslty import it in your createUser server file.
+  1.2 now you have to create the salt using the await bcrypt.genSalt(10); and pass any number in it. and 
+      also Remember that this function returns an promise so its good to use the await here.
+  1.3 now once you have generated the salt how its time to hash the password using the:- 
+      await bcrypt.hash("password",salt); now when you send the data in the database your mongobd will save the 
+      password in the hash form.
+  1.4 also,before moving forwards , you must also Remember to update the login logic also , as earlier we use 
+      to compare the userpassword with the DB password directly , but now the password is bcrypted that means
+      we have to compare to the bcrypted password for that we have to use:- await bcrypt.compare(req.body.password,userpassword);
+ 2. Now, once you have bcrypted the password, lets generate the jwt for that -:
+   2.1 to use the jwt library firslty import the jwt in the file. and in this case i want to generate the jwt once the user have login
+       successfully once.
+   2.2 as you know that the jwt is divided into three parts those are:-
+     2.2.1   1-> header{ algoritm:"", type:"jwt"};
+             2-> payload(contains the data){"sub": "1234567890","name": "John Doe", "iat": 1516239022} however i have used the id in
+                 place of the data.
+             3-> signature{header,payload,secretkey(that should be atleast 32 bit long string.)}     
+   2.3 in my case i have created the payload and use the user id as the data in the payload as its the only unique info about the user.
+   2.4 after creating the payload i have to create the signature for that we have:- jwt.sign(payload,secretkey);
+   Remember you can define the secretkey on your own and it will be best if you store that key in the .env file.
+   2.5 and then finally in the frontend part once the user has successfully login store the jwt in the localstroage.
+   ****************************************************************************************************************/                          
+
+/********************************HOW to Fectch and display data from the database to your frontend******************
+  
+ 1-> Remember , you have a different way through which you can display the data directly in web page without
+     storing it in the database by using the Hooks and saving the data in the api form in the seprate file in 
+     the frontend folder only.
+ 2-> But, here i have saved our data in the database so , what we are going to do is we are going to fetch the 
+    data from the database and then display it in the frontend part.
+
+    2.1->To do that firslty simply fetch the data in the database.js file where you have establish the connection 
+        between the server and the DB . and store the data fetched from the DB in the global variable. you can declare
+        the global variable like-: global.varname="value";(now you can use the is var anywhere in the application).
+ 3-> Now once you have fetched the data and store it in the global var now its time to create an endpoint so that 
+     once the end point was hit the server will know to send the response as an data stored in the global var.
+
+    3.1->Now to do that what we are going to do is firstly create and middleware in the index.js sever file using 
+        the app.use() and then create an Route in the Routes folder for to send the data. to create the end point
+        you have to use express and Routes and then use the route post method to send the response as an array of
+        array object in the res.send(global.varname)method which is the try catch block of the async function.
+        Also , Similarly fetch the data of the food_category collection from the data base. and then send it 
+        also in the res.send(global.varname,global.varname).
+
+ 4-> Now , we are done with the backend part its time to move to the frontend part . means how that i have 
+    created an endpoint to send the data from the database now its time to use that endpoint in the frontend 
+    by using the fetch() method. so go to your Home.js because it is where you have called the cards component.
+    By card component i mean see now that you have the data its time to display that data in the frontend in 
+    the card form. so that why we are going to send the data that we will fetch in the Home.js as a prop in the 
+    card component.
+
+    4.1-> So, the first thing you are going to do is we are going to create two States which will hold the two 
+         data's that we send through our server one is food_items and other is food_category. now also we are going
+        to use the useEffect hook because i want that data to be displayed excactly after the page is rendered.
+        and inside that useEffect hook i am going to write some functionality that will set both the States .
+    4.2-> Basically what i have done is i have createad an async fun that will call the fetch() method to get 
+          the data from the server and then store that data inside the States then by using the useEffect() i 
+          have called this function excactly after the page is loaded and for once.
+    4.3-> Now, that  i have the data it's time for to populate the data in the card for in the frontend. but
+         i want my cards to be displayed according to their specified food_category so firstly i have make the 
+         categroy section so in the card parent div i am going to use the javascript and apply one condition using the 
+         ternary operator that if my food_category is not empty then display categroy list ohter wise display "" .
+
+    4.4-> Now, that your categroy is set now you jsut have to display the cards category wise for that we are going
+         to use the filter() method and then use the map() to display the data in category wise. then finally
+         pass the food-item state as an prop to the card component. but before that we have to make the cards looks
+         good in the full screen so for that we are going to use the bootstap gid classes .
+    4.5-> then , pass the data of the card conentent as a prop to the card component.
+    4.6-> then finally its time to set the functionality of the search box for that, firstly create an state for it
+         to store the value the user will enter for that also you have to pass the value to the state for that 
+         simply in the search tag use value="state-name" then use the onChange={} event listener that will call the
+         function in which pass the value to the state using the event.target.value.
+         then in the category logic where you are matching the category wiht the card categroy add one more condition
+         that if the name of the card or title of the card has the state value then show those cards only for that use
+         if(card.name.includes(search-state)) then show only those cards to the user.
+
+    5=> Now , we have to build the logic for the navbar also that is if the user is already loged in then show the 
+    myorders and logout and cart option on the navbar otherwise show the simple navbar with login and signup and 
+    how we are going to know that user is already login or not that is wiht the help of the authtoke that we have 
+    generated when the user has login and we have stored in that authtoken in the localstorage. we are going to 
+    use that authtoken only to build the logic.
+
+     5.1->it a simple login that is i am going to use the jsx functionality of the react and apply js in the navbar
+          first logic was that if the authtoke is already present(means user is login) then simply display the 
+          mycart, myorder and logout section in the navbar . using the ternary operations.
+     5.2-> then the next logic i have to built is the logic of the logout btn in that logout btn i have used the 
+           onClick() event listener that will call the function which defines that once the user click on the 
+           logout btn firstly remove the authtoken form the localstorage and then by using the useNavigation function 
+           from the react-router-dom simply navigate to the login page.
+*******************************************************************************************************************/                                                         
+
+
+/******************************************************************************************************************
+
+
+/********************************************
