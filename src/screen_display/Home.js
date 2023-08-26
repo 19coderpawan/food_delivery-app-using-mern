@@ -39,6 +39,7 @@ const Home = () => {
                 aria-label="Search"
                 value={search_data}
                 onChange={(e)=>set_search_data(e.target.value)}
+                style={{ width:'50%',marginLeft:'25%'}}
               />
               {/* <button className="btn btn-outline-success" type="submit">
                 Search
@@ -54,7 +55,7 @@ const Home = () => {
           ?food_category_data.map((data)=>{
             return(
               <div className='row mb-3'>
-              <div key={data._id}><h1 className='text-center mt-3'>{data.CategoryName}</h1></div>
+              <div key={data._id}><h1 className='text-center' style={{marginTop:'10px'}}>{data.CategoryName}</h1></div>
               <hr />
               {
                 food_data_item!==[]
@@ -63,9 +64,7 @@ const Home = () => {
                 ).map((food_items)=>{
                   return(
                     <div className='col-12 col-md-6 col-lg-3' key={food_items._id}>
-                    <Cards foodname={food_items.name}
-                     foodimage={food_items.img}
-                     fooddescription={food_items.description} 
+                    <Cards foodItem={food_items}
                      foodoptions={food_items.options[0]}>
                      </Cards>
                     </div>
