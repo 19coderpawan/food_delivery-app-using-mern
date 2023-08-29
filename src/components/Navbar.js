@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import Modal from '../Modal';
@@ -6,7 +6,14 @@ import MyCart from '../screen_display/MyCart';
 import { CartState } from './ContextReducer';
 const Navbar = () => {
   const navigation=useNavigate();
+ 
   let data=CartState();
+  const [lengthstate, setLength] = useState(data.length); // Initialize length with initial data
+  useEffect(() => {
+    setLength(data.length); // Update length whenever context data changes
+  }, [data]);
+ 
+
   const changeOccur=()=>{
     localStorage.removeItem('authtoke');
     navigation('/login');
@@ -60,12 +67,12 @@ const [viewCart,setCartView]=useState(false);
             </Link>
             </div>
             :<div className='d-flex ' >
-              <Link className="btn bg-white text-success mx-1"  to="/" onClick={changeOccur}>
+              <Link className="btn bg-white text-success mx-1"  to="/"  onClick={changeOccur}>
             Logout
               </Link>
        
              <Link className="btn bg-white text-success mx-1"  to="/" onClick={()=>setCartView(true)}>
-            MyCart {" "}<Badge bg="danger">{data.length}</Badge>
+            MyCart {" "}<Badge bg="danger">{lengthstate}</Badge>
              </Link>  
              {viewCart?<Modal onClose={()=>setCartView(false)}><MyCart></MyCart></Modal>:null}
           </div>
