@@ -1,11 +1,17 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Delete from '@material-ui/icons/Delete'
 import { CartState, CartDispatch } from '../components/ContextReducer';
 export default function Cart() {
   let data = CartState();
+  const [lengthstate, setLength] = useState(data.length); // Initialize length with initial data
+
+  useEffect(() => {
+    setLength(data.length); // Update length whenever context data changes
+  }, [data]);
+ 
   console.log("the length of data is "+data.length);
   let dispatch = CartDispatch();
-  if (data.length === 0) {
+  if (lengthstate === 0) {
     return (
       <div>
         <div className='m-5 w-100 text-center text-success fs-3'>The Cart is Empty!</div>
@@ -39,7 +45,7 @@ export default function Cart() {
     }
   }
 
-  let totalPrice = data.reduce((total, food) => total + food.price, 0)
+  let totalPrice = data.reduce((total, food) => total + food.finalPrice, 0)
   return (
     <div>
 
@@ -68,7 +74,7 @@ export default function Cart() {
             ))}
           </tbody>
         </table>
-        <div><h1 className='fs-2'>Total Price: {totalPrice}/-</h1></div>
+        <div><h1 className='fs-2 text-danger'>Total Price: {totalPrice}/-</h1></div>
         <div>
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>
