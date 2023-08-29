@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // now import the cart Context from the ContextReducer file to use them.
 import { CartState, CartDispatch } from './ContextReducer';
 
+
 const Cards = (props) => {
     let options = props.foodoptions;
     const dispatch=CartDispatch();
@@ -12,10 +13,31 @@ const Cards = (props) => {
     const [size, setsize] = useState("");
     const [quantity, setquantity] = useState(1);
     const handleCart = async() => {
-    //    once the user has clicked on the add btn all the data should be store in the dispatch method.
-       await dispatch({type:"Add",id:props.foodItem._id,name:props.foodItem.name,image:props.foodItem.img,
+        // so before the add condition we have several conditions to perform they are-:
+        // Update conditions.
+         let food=[]
+         for(const item of data){
+            if(item.id ===props.foodItem._id){
+                food=item;
+                break;
+            }
+         }
+         if(food!==[]){
+            if(food.size===size){
+                await dispatch({type:"update", id:props.foodItem._id, finalPrice:finalPrice,quantity:quantity});
+                return
+            }
+         
+        else if(food.size!==size){
+            //    once the user has clicked on the add btn all the data should be store in the dispatch method.
+               await dispatch({type:"Add",id:props.foodItem._id,name:props.foodItem.name,image:props.foodItem.img,
+                description:props.foodItem.description,size:size,quantity:quantity,finalPrice:finalPrice});
+                return ;
+                // console.log(data);
+        }
+    }
+        await dispatch({type:"Add",id:props.foodItem._id,name:props.foodItem.name,image:props.foodItem.img,
         description:props.foodItem.description,size:size,quantity:quantity,finalPrice:finalPrice});
-        console.log(data);
     }
     // now i want to display the keys of the option object for that we have method called Object.key() .
     let priceoptions = Object.keys(options)
