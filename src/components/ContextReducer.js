@@ -26,7 +26,25 @@ const reducer = (state, action) => {
            localStorage.setItem('cart',JSON.stringify(newState));//update the localstorage.
            return newState;
       }
-
+      case 'update': {
+        console.log("its time to update");
+        const updatedCart = state.map(food => {
+          if (food.id === action.id) {
+            console.log("entered");
+            console.log(food.quantity, parseInt(action.quantity), action.finalPrice + food.finalPrice);
+            return {
+              ...food,
+              quantity: parseInt(action.quantity) + parseInt(food.quantity),
+              finalPrice: parseInt(action.finalPrice) + parseInt(food.finalPrice) 
+            };
+          }
+          return food;
+        });
+      
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+      
     default:
       console.log('Error in fetching the data');
       return state;
@@ -40,7 +58,7 @@ export const CartProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state));
+     localStorage.setItem('cart', JSON.stringify(state));
   }, [state]);
 
   return (
