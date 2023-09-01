@@ -44,6 +44,10 @@ const reducer = (state, action) => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         return updatedCart;
       }
+      case 'DROP':{
+        const emptyarr=[]
+        return emptyarr;
+      }
       
     default:
       console.log('Error in fetching the data');
