@@ -18,6 +18,7 @@ const Router=require('./Routes/CreateUser');
 const Router2=require('./Routes/UserLogin');
 const Router3=require('./Routes/DisplayData');
 const Router4=require('./Routes/OrderData');
+const Router5=require('./Routes/MyOrders');
 /* Now once you have created the signup page in the frontend and you have setup everything now you have to allow 
 the crossorign*/
 app.use((req,res,next)=>{
@@ -45,6 +46,7 @@ app.use('/api',Router)
 app.use('/api',Router2)
 app.use('/api',Router3)
 app.use('/api',Router4)
+app.use('/api',Router5)
 
 
 /*This line starts the Express server and makes it listen on the specified port. 
